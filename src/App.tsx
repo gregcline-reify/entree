@@ -37,7 +37,30 @@ function menuItem(item: MenuItem) {
 export function App() {
   return (
     <>
-      <h1 style={{color: brandColor, paddingBottom: 16}}>Entree</h1>
+      <h1>Entree</h1>
+
+      <form>
+        <div>
+          <label htmlFor="name">Name</label>
+          <br/>
+          <input type="text" id="name" />
+        </div>
+
+        <div>
+          <label htmlFor="description">Description</label>
+          <br/>
+          <textarea id="description" />
+        </div>
+
+        <div>
+          <label htmlFor="price">Price</label>
+          <br/>
+          <input type="number" id="price" />
+        </div>
+
+        <input type="submit" value="Save Menu Item" />
+      </form>
+
       <div>
         {menu.map(menuItem)}
       </div>

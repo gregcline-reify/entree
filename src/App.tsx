@@ -1,4 +1,5 @@
 import styles from './App.module.scss';
+import { Input } from './Input';
 
 const brandColor = 'blue';
 
@@ -40,23 +41,11 @@ export function App() {
       <h1>Entree</h1>
 
       <form>
-        <div>
-          <label htmlFor="name">Name</label>
-          <br/>
-          <input type="text" id="name" />
-        </div>
+        <Input id="name" type="text" label="Name" />
 
-        <div>
-          <label htmlFor="description">Description</label>
-          <br/>
-          <textarea id="description" />
-        </div>
+        <Input id="description" type="textarea" label="Description" />
 
-        <div>
-          <label htmlFor="price">Price</label>
-          <br/>
-          <input type="number" id="price" />
-        </div>
+        <Input id="price" type="number" label="Price" />
 
         <input type="submit" value="Save Menu Item" />
       </form>

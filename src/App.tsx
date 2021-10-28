@@ -1,13 +1,18 @@
+import { useState } from 'react';
 import styles from './App.module.scss';
 import { Input } from './Input';
-
-const brandColor = 'blue';
 
 type MenuItem = {
   id: number;
   name: string;
   description: string;
   price: number;
+};
+
+type NewMenuItem = {
+  name: string;
+  description: string;
+  price: number | null;
 };
 
 const menu: MenuItem[] = [
@@ -25,6 +30,12 @@ const menu: MenuItem[] = [
   }
 ]
 
+const initialNewMenuItem: NewMenuItem = {
+  name: "",
+  description: "",
+  price: null,
+}
+
 function menuItem(item: MenuItem) {
   return (
     <div key={item.id} className={styles.card}>
@@ -36,16 +47,26 @@ function menuItem(item: MenuItem) {
 }
 
 export function App() {
+  const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
+
+  function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    setNewMenuItem({...newMenuItem, [event.target.id]: event.target.value});
+    newMenuItem.name = event.target.value;
+  }
+
   return (
     <>
       <h1>Entree</h1>
 
       <form>
-        <Input id="name" type="text" label="Name" />
+        <Input id="name" type="text" label="Name" value={newMenuItem.name}
+               onChange={onChange} />
 
-        <Input id="description" type="textarea" label="Description" />
+        <Input id="description" type="textarea" label="Description"
+               value={newMenuItem.description} onChange={onChange} />
 
-        <Input id="price" type="number" label="Price" />
+        <Input id="price" type="number" label="Price"
+               value={newMenuItem.price?.toString() ?? ""} onChange={onChange} />
 
         <input type="submit" value="Save Menu Item" />
       </form>

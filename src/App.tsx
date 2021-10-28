@@ -15,21 +15,6 @@ type NewMenuItem = {
   price: number | null;
 };
 
-const initialMenu: MenuItem[] = [
-  {
-    id: 1,
-    name: 'Chicken Tikka Masala',
-    description: 'Rich curry chicken',
-    price: 17,
-  },
-  {
-    id: 2,
-    name: 'BBQ Ribs',
-    description: 'Meaty & tender',
-    price: 24,
-  }
-]
-
 const initialNewMenuItem: NewMenuItem = {
   name: "",
   description: "",
@@ -48,7 +33,7 @@ function menuItem(item: MenuItem) {
 
 export function App() {
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
-  const [menu, setMenu] = useState(initialMenu);
+  const [menu, setMenu] = useState<MenuItem[]>([]);
 
   function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewMenuItem({...newMenuItem, [event.target.id]: event.target.value});
@@ -58,7 +43,6 @@ export function App() {
     event.preventDefault();
     setMenu([...menu, {...newMenuItem, price: newMenuItem.price ?? 0, id: menu.length + 1}]);
     setNewMenuItem(initialNewMenuItem);
-    alert("ITEM ADDED");
   }
 
   return (

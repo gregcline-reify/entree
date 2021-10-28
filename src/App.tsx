@@ -1,3 +1,5 @@
+import styles from './App.module.scss';
+
 const brandColor = 'blue';
 
 type MenuItem = {
@@ -22,15 +24,23 @@ const menu: MenuItem[] = [
   }
 ]
 
+function menuItem(item: MenuItem) {
+  return (
+    <div key={item.id} className={styles.card}>
+     <h3>{item.name}</h3>
+     <p>{item.description}</p>
+     <p>${item.price}</p>
+   </div>
+  );
+}
+
 export function App() {
   return (
     <>
       <h1 style={{color: brandColor, paddingBottom: 16}}>Entree</h1>
-      <ul>
-        {menu.map((item) => {
-        return <li key={item.id}>{item.name}</li>;
-        })}
-      </ul>
+      <div>
+        {menu.map(menuItem)}
+      </div>
     </>
   );
 }

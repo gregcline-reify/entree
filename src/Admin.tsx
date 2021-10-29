@@ -1,11 +1,8 @@
 import { useState } from "react";
+import { addMenuItem } from "./api/menuApi";
 import { Input } from "./Input";
-
-type NewMenuItem = {
-  name: string;
-  description: string;
-  price: number | null;
-};
+import { NewMenuItem } from "./types";
+import { useHistory } from "react-router-dom";
 
 const initialNewMenuItem: NewMenuItem = {
   name: "",
@@ -14,24 +11,25 @@ const initialNewMenuItem: NewMenuItem = {
 }
 
 export function Admin() {
+  const history = useHistory()
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
 
   function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewMenuItem({...newMenuItem, [event.target.id]: event.target.value});
   }
 
-  // function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-  //   event.preventDefault();
-  //   setMenu([...menu, {...newMenuItem, price: newMenuItem.price ?? 0, id: menu.length + 1}]);
-  //   setNewMenuItem(initialNewMenuItem);
-  // }
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await addMenuItem(newMenuItem);
+    history.push("/");
+  }
 
   return (
     <>
       <h1>Admin</h1>
 
       <h2>Add Menu Item</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <Input id="name" type="text" label="Name" value={newMenuItem.name}
                onChange={onChange} />
 

@@ -1,16 +1,28 @@
 {
   "menu": [
-  {
-    "id": 1,
-    "name": "Chicken Tikka Masala",
-    "description": "Rich curry chicken",
-    "price": 17
-  },
-  {
-    "id": 2,
-    "name": "BBQ Ribs",
-    "description": "Meaty & tender",
-    "price": 24
+    {
+      "id": 1,
+      "name": "Chicken Tikka Masala",
+      "description": "Rich curry chicken",
+      "price": 17
+    },
+    {
+      "id": 2,
+      "name": "BBQ Ribs",
+      "description": "Meaty & tender",
+      "price": 24
+    },
+    {
+      "name": "Beetroot",
+      "description": "you want beetroot? ",
+      "price": "12",
+      "id": 4
+    },
+    {
+      "name": "Pizza",
+      "description": "Round cheese but not cheese wheel",
+      "price": "8",
+      "id": 5
     }
   ]
 }

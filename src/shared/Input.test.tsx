@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { Input } from "./Input";
 
+
 describe("Input", () => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
   it("should throw an error if id is empty", () => {
     expect(() =>
       render(

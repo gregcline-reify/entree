@@ -23,6 +23,42 @@
       "description": "Round cheese but not cheese wheel",
       "price": "8",
       "id": 5
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 6
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 7
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 8
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 9
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 10
+    },
+    {
+      "name": "Glazed donut",
+      "description": "Tasty",
+      "price": "1",
+      "id": 11
     }
   ]
 }

@@ -8,6 +8,7 @@ type InputProps = {
 
 export function Input(props: InputProps) {
   const {id, label, onChange, type = "text", value} = props;
+  if (!id) throw new Error("ID must be populated");
   return (
     <div>
       <label htmlFor={id}>{label}</label>

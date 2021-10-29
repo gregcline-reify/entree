@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getMenu } from './api/menuApi';
 import styles from './App.module.scss';
 import { Input } from './Input';
 
@@ -34,6 +35,15 @@ function menuItem(item: MenuItem) {
 export function App() {
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
   const [menu, setMenu] = useState<MenuItem[]>([]);
+
+  useEffect(() => {
+    async function fetchMenu() {
+      const _menu = await getMenu()
+      setMenu(_menu);
+    }
+    fetchMenu();
+  }, []);
+
 
   function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewMenuItem({...newMenuItem, [event.target.id]: event.target.value});

@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Route } from 'react-router-dom';
+import { About } from './About';
 import { getMenu } from './api/menuApi';
-import styles from './App.module.scss';
+import { Home } from './Home';
 import { Input } from './Input';
-
-type MenuItem = {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-};
 
 type NewMenuItem = {
   name: string;
@@ -22,44 +17,32 @@ const initialNewMenuItem: NewMenuItem = {
   price: null,
 }
 
-function menuItem(item: MenuItem) {
-  return (
-    <div key={item.id} className={styles.card}>
-     <h3>{item.name}</h3>
-     <p>{item.description}</p>
-     <p>${item.price}</p>
-   </div>
-  );
-}
-
 export function App() {
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
-  const [menu, setMenu] = useState<MenuItem[]>([]);
-
-  useEffect(() => {
-    async function fetchMenu() {
-      const _menu = await getMenu()
-      setMenu(_menu);
-    }
-    fetchMenu();
-  }, []);
-
 
   function onChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setNewMenuItem({...newMenuItem, [event.target.id]: event.target.value});
   }
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setMenu([...menu, {...newMenuItem, price: newMenuItem.price ?? 0, id: menu.length + 1}]);
-    setNewMenuItem(initialNewMenuItem);
-  }
+  // function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+  //   setMenu([...menu, {...newMenuItem, price: newMenuItem.price ?? 0, id: menu.length + 1}]);
+  //   setNewMenuItem(initialNewMenuItem);
+  // }
 
   return (
     <>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+
+      <Route path="/about">
+        <About />
+      </Route>
+
       <h1>Entree</h1>
 
-      <form onSubmit={onSubmit}>
+      <form>
         <Input id="name" type="text" label="Name" value={newMenuItem.name}
                onChange={onChange} />
 
@@ -71,10 +54,6 @@ export function App() {
 
         <input type="submit" value="Save Menu Item" />
       </form>
-
-      <div>
-        {menu.map(menuItem)}
-      </div>
     </>
   );
 }

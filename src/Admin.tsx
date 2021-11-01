@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { addMenuItem } from "./api/menuApi";
 import { Input } from "./shared/Input";
-import { NewMenuItem } from "./types";
+import { MenuItem, NewMenuItem } from "./types";
 
 const initialNewMenuItem: NewMenuItem = {
   name: "",
@@ -18,7 +18,11 @@ type AdminError = {
 
 type Status = "Idle" | "Saving" | "Submitted";
 
-export function Admin() {
+type AdminProps = {
+  menu: MenuItem[];
+};
+
+export function Admin({menu}: AdminProps) {
   const history = useHistory();
   const [status, setStatus] = useState<Status>("Idle");
   const [saveError, setSaveError] = useState<Error | null>(null);
@@ -35,6 +39,7 @@ export function Admin() {
     };
 
     if (!newMenuItem.name) error.name = "Name is required.";
+    if (menu.find(m => m.name === newMenuItem.name)) error.name = "Name must be distinct";
     if (!newMenuItem.description)
       error.description = "Description is required.";
     if (!newMenuItem.price) error.price = "Price is required.";

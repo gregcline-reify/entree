@@ -1,10 +1,25 @@
+import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Link, Route } from "react-router-dom";
 import { About } from "./About";
 import { Admin } from "./Admin";
+import { getMenu } from "./api/menuApi";
 import { Home } from "./Home";
+import { LoadingStatus, MenuItem } from "./types";
 
 export function App() {
+  const [menu, setMenu] = useState<MenuItem[]>([]);
+  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("Loading");
+
+  useEffect(() => {
+    async function fetchMenu() {
+      const _menu = await getMenu();
+      setMenu(_menu);
+      setLoadingStatus("Loaded");
+    }
+    fetchMenu();
+  }, []);
+
   return (
     <>
       <nav>
@@ -12,7 +27,7 @@ export function App() {
         <Link to="/admin">Admin</Link>
       </nav>
       <Route path="/" exact>
-        <Home />
+        <Home menu={menu} loadingStatus={loadingStatus}/>
       </Route>
 
       <Route path="/about">
@@ -21,7 +36,7 @@ export function App() {
 
       <Route path="/admin">
         <ErrorBoundary fallback={<>Sorry, the save failed</>}>
-          <Admin />
+          <Admin menu={menu} />
         </ErrorBoundary>
       </Route>
     </>

@@ -1,3 +1,5 @@
+export type LoadingStatus = "Loading" | "Loaded";
+
 export type MenuItem = {
   id: number;
   name: string;

@@ -19,8 +19,8 @@ function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
 }
 
 ReactDOM.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
   document.getElementById("root")
 );

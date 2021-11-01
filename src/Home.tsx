@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { getMenu } from "./api/menuApi";
 import styles from "./Home.module.scss";
-import { MenuItem } from "./types";
+import { LoadingStatus, MenuItem } from "./types";
 
-type LoadingStatus = "Loading" | "Loaded";
+type HomeProps = {
+  menu: MenuItem[];
+  loadingStatus: LoadingStatus;
+}
 
 function menuItem(item: MenuItem) {
   return (
@@ -15,18 +16,7 @@ function menuItem(item: MenuItem) {
   );
 }
 
-export function Home() {
-  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("Loading");
-  const [menu, setMenu] = useState<MenuItem[]>([]);
-
-  useEffect(() => {
-    async function fetchMenu() {
-      const _menu = await getMenu();
-      setMenu(_menu);
-      setLoadingStatus("Loaded");
-    }
-    fetchMenu();
-  }, []);
+export function Home({menu, loadingStatus}: HomeProps) {
 
   return (
     <>

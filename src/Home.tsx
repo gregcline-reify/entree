@@ -3,6 +3,8 @@ import { getMenu } from "./api/menuApi";
 import styles from "./Home.module.scss";
 import { MenuItem } from "./types";
 
+type LoadingStatus = "Loading" | "Loaded";
+
 function menuItem(item: MenuItem) {
   return (
     <div key={item.id} className={styles.card}>
@@ -14,12 +16,14 @@ function menuItem(item: MenuItem) {
 }
 
 export function Home() {
+  const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>("Loading");
   const [menu, setMenu] = useState<MenuItem[]>([]);
 
   useEffect(() => {
     async function fetchMenu() {
       const _menu = await getMenu();
       setMenu(_menu);
+      setLoadingStatus("Loaded");
     }
     fetchMenu();
   }, []);
@@ -27,7 +31,11 @@ export function Home() {
   return (
     <>
       <h1>Menu</h1>
-      {menu.length} Items found.
+      {loadingStatus === "Loading" ? (
+        <p>Menu loading...</p>
+      ) : (
+        menu.length + " Items found."
+      )}
       <div>{menu.map(menuItem)}</div>
     </>
   );

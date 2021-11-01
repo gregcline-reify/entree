@@ -24,7 +24,7 @@ export function Admin() {
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
 
   const errors = validate();
-  const valid = Object.values(errors).some((v) => v);
+  const invalid = Object.values(errors).some((v) => v);
 
   function validate(): Error {
     const error: Error = {
@@ -49,7 +49,7 @@ export function Admin() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("Submitted");
-    if (!valid) return;
+    if (invalid) return;
     setStatus("Saving");
     await addMenuItem(newMenuItem);
     history.push("/");

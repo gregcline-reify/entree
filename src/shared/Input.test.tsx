@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Input } from "./Input";
-
+import { Textarea } from "./Input.stories";
 
 describe("Input", () => {
   jest.spyOn(console, "error").mockImplementation(() => {});
@@ -18,8 +18,8 @@ describe("Input", () => {
   });
 
   it("should render an textarea with an attached label when type='textarea'", () => {
-    render(<Input type="textarea" label="label" value="" id="label" onChange={() => {}} />);
+    render(<Textarea type="textarea" label="label" id="email" onChange={() => {}} value="" />);
     const input = screen.getByLabelText("label"); // Implied assertion
     expect(input).toBeInstanceOf(HTMLTextAreaElement);
   });
-})
+});

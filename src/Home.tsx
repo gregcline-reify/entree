@@ -27,7 +27,7 @@ export function Home() {
   return (
     <>
       <h1>Menu</h1>
-      {menu.length + " Items found."}
+      {menu.length} Items found.
       <div>{menu.map(menuItem)}</div>
     </>
   );

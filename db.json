@@ -23,12 +23,6 @@
       "description": "Round cheese but not cheese wheel",
       "price": "8",
       "id": 5
-    },
-    {
-      "name": "asdf",
-      "description": "asdf",
-      "price": "2",
-      "id": 6
     }
   ]
 }

@@ -10,7 +10,7 @@ const initialNewMenuItem: NewMenuItem = {
   price: null,
 };
 
-type Error = {
+type AdminError = {
   name: string;
   description: string;
   price: string;
@@ -21,22 +21,24 @@ type Status = "Idle" | "Saving" | "Submitted";
 export function Admin() {
   const history = useHistory();
   const [status, setStatus] = useState<Status>("Idle");
+  const [saveError, setSaveError] = useState<Error | null>(null);
   const [newMenuItem, setNewMenuItem] = useState(initialNewMenuItem);
 
   const errors = validate();
   const invalid = Object.values(errors).some((v) => v);
 
-  function validate(): Error {
-    const error: Error = {
+  function validate(): AdminError {
+    const error: AdminError = {
       name: "",
       description: "",
       price: "",
     };
+
     if (!newMenuItem.name) error.name = "Name is required.";
     if (!newMenuItem.description)
       error.description = "Description is required.";
     if (!newMenuItem.price) error.price = "Price is required.";
-    if (newMenuItem.price == 0) error.price = "Price must be greater than 0.";
+    if (newMenuItem.price === 0) error.price = "Price must be greater than 0.";
     return error;
   }
 
@@ -51,9 +53,15 @@ export function Admin() {
     setStatus("Submitted");
     if (invalid) return;
     setStatus("Saving");
-    await addMenuItem(newMenuItem);
-    history.push("/");
+    try {
+      await addMenuItem(newMenuItem);
+      history.push("/");
+    } catch (err: unknown) {
+      setSaveError(err as Error);
+    }
   }
+
+  if (saveError) throw saveError;
 
   return (
     <>

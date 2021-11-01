@@ -1,13 +1,15 @@
-import { Route, Link } from 'react-router-dom';
-import { About } from './About';
-import { Admin } from './Admin';
-import { Home } from './Home';
+import { ErrorBoundary } from "react-error-boundary";
+import { Link, Route } from "react-router-dom";
+import { About } from "./About";
+import { Admin } from "./Admin";
+import { Home } from "./Home";
 
 export function App() {
   return (
     <>
       <nav>
-        <Link to="/">Home</Link> | <Link to="/about">About</Link> | <Link to="/admin">Admin</Link>
+        <Link to="/">Home</Link> | <Link to="/about">About</Link> |{" "}
+        <Link to="/admin">Admin</Link>
       </nav>
       <Route path="/" exact>
         <Home />
@@ -18,7 +20,9 @@ export function App() {
       </Route>
 
       <Route path="/admin">
-        <Admin />
+        <ErrorBoundary fallback={<>Sorry, the save failed</>}>
+          <Admin />
+        </ErrorBoundary>
       </Route>
     </>
   );

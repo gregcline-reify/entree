@@ -9,7 +9,7 @@ export async function getMenu() {
 }
 
 export async function addMenuItem(newMenuItem: NewMenuItem): Promise<MenuItem> {
-  const resp = await fetch("http://localhost:3001/menu", {
+  const resp = await fetch("http://locahost:300/menu", {
     method: "POST",
     headers: {
       "content-type": "application/json",
